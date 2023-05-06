@@ -1,6 +1,5 @@
 package uz.univer.kattabozortask.di
 
-import android.provider.SyncStateContract
 import android.util.Log
 import com.google.gson.Gson
 import dagger.Module
@@ -12,15 +11,14 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import uz.univer.kattabozortask.BuildConfig
 import uz.univer.kattabozortask.data.remote.OffersApi
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
     @[Provides Singleton]
     fun provideRetrofit(
         gsonConverterFactory: GsonConverterFactory,
@@ -33,22 +31,18 @@ object NetworkModule {
 
     @[Provides Singleton]
     fun provideCountryApi(retrofit: Retrofit): OffersApi = retrofit.create()
-
-
     @[Provides Singleton]
     fun provideClient(
         loggingInterceptor: HttpLoggingInterceptor,
     ) = OkHttpClient.Builder()
-        .readTimeout(SyncStateContract.Constants.WRITE_TIME_OUT, TimeUnit.SECONDS)
-        .writeTimeout(SyncStateContract.Constants.WRITE_TIME_OUT, TimeUnit.SECONDS)
+        .readTimeout(1000L, TimeUnit.SECONDS)
+        .writeTimeout(1000L, TimeUnit.SECONDS)
         .addInterceptor(loggingInterceptor)
         .build()
-
-
     @[Provides Singleton]
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor {
-            Log.d("RRR", it)
+            Log.d("TTT", it)
         }
         interceptor.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
         else HttpLoggingInterceptor.Level.NONE
@@ -60,4 +54,5 @@ object NetworkModule {
 
     @[Provides Singleton]
     fun provideGson(): Gson = Gson()
+
 }

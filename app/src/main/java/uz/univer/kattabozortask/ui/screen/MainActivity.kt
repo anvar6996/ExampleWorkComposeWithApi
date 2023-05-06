@@ -1,17 +1,17 @@
-package uz.univer.kattabozortask.data.prezeontation.screen
+package uz.univer.kattabozortask.ui.screen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import uz.univer.kattabozortask.ui.screen.offers.OffersScreen
+import uz.univer.kattabozortask.ui.screen.offers.OffersViewModel
 import uz.univer.kattabozortask.ui.theme.KattaBozorTaskTheme
 
 @AndroidEntryPoint
@@ -20,28 +20,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             KattaBozorTaskTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    OffersScreen("Android")
+                    val viewModel: OffersViewModel = hiltViewModel()
+                    val uiState = viewModel.uiState.collectAsState()
+                    OffersScreen(uiState,viewModel::execute)
                 }
             }
         }
-    }
-}
-
-@Composable
-fun OffersScreen(name: String, modifier: Modifier = Modifier) {
-    Column {
-//          LazyColumn(content = name)
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun OffersScreenPreview() {
-    KattaBozorTaskTheme {
-        OffersScreen("Android")
     }
 }
