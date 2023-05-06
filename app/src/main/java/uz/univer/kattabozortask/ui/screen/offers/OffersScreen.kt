@@ -34,8 +34,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import uz.univer.kattabozortask.data.models.Offer
 import uz.univer.kattabozortask.ui.theme.KattaBozorTaskTheme
-
-
 @Composable
 fun OffersScreen(uiState: State<OffersUIState>, action: (OffersScreenAction) -> Unit) {
     Column(
@@ -74,7 +72,6 @@ fun OffersScreen(uiState: State<OffersUIState>, action: (OffersScreenAction) -> 
         }
     }
 }
-
 @Composable
 fun OfferItem(offer: Offer) {
     Row(
@@ -114,7 +111,6 @@ fun TryAgain(onClick: () -> Unit = { }) {
         }
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun OffersScreenPreview() {
@@ -125,7 +121,6 @@ fun OffersScreenPreview() {
         }
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun TryAgainPreview() {
