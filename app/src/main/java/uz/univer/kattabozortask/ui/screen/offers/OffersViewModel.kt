@@ -17,17 +17,14 @@ class OffersViewModel @Inject constructor(
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(OffersUIState())
     val uiState = _uiState.asStateFlow()
-
     init {
         execute()
     }
-
     fun execute(action: OffersScreenAction) {
         when (action) {
             is RefreshOffersScreenAction -> execute()
         }
     }
-
     private fun execute() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
@@ -44,10 +41,8 @@ class OffersViewModel @Inject constructor(
         }
     }
 }
-
 sealed interface OffersScreenAction
 object RefreshOffersScreenAction : OffersScreenAction
-
 data class OffersUIState(
     val isLoading: Boolean = false,
     val message: String? = null,
